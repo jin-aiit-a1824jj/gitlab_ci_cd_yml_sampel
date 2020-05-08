@@ -1,4 +1,5 @@
 build wesite:
+  image: node
   script:
     - npm install
     - npm install -g gatsby-cli
