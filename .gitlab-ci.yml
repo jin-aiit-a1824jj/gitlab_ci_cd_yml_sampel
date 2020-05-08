@@ -1,6 +1,7 @@
 build wesite:
-  image: node
+  image: node:14-alpine
   script:
     - npm install
     - npm install -g gatsby-cli
-    - ls -al
+    - cd ./session2/static-website/
+    - gatsby build
