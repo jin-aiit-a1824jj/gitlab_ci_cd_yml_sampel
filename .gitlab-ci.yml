@@ -3,4 +3,4 @@ build wesite:
   script:
     - npm install
     - npm install -g gatsby-cli
-    - gatsby build
+    - ls -al
