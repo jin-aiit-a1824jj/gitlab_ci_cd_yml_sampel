@@ -5,3 +5,6 @@ sudo chown -R [id] /usr/local/bin/
 gatsby new static-website
 cd static-website
 gatsby develop
+
+gatsby build
+
