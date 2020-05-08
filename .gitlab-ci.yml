@@ -13,7 +13,7 @@ build wesite:
     - gatsby build
   artifacts:
     paths:
-      - ./session2/static-website
+      - ./session2/static-website/public
 
 test artifacts:
   stage: test
