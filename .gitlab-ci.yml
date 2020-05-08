@@ -17,6 +17,8 @@ build wesite:
 
 test artifacts:
   stage: test
+  image: alpine:latest
   script:
+    - ls -al
     - grep "Gatsby" ./session2/static-website/index.html
     - grep "xxxxxx" ./session2/static-website/index.html
