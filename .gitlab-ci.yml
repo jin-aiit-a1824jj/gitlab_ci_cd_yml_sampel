@@ -8,4 +8,4 @@ build wesite:
     - gatsby build
   artifacts:
     paths:
-      - ./session2/public
+      - ./session2/static-website
