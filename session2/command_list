@@ -4,4 +4,4 @@ sudo chown -R [id] /usr/local/lib/node_modules
 sudo chown -R [id] /usr/local/bin/
 gatsby new static-website
 cd static-website
-gatsby debelop
+gatsby develop
