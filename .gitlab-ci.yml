@@ -1,4 +1,9 @@
+stages:
+  - build
+  - test
+
 build wesite:
+  stage: build
   image: node:14-alpine
   script:
     - ls -al
@@ -9,3 +14,9 @@ build wesite:
   artifacts:
     paths:
       - ./session2/static-website
+
+test artifacts:
+  stage: test
+  script:
+    - grep "Gatsby" ./session2/static-website/index.html
+    - grep "xxxxxx" ./session2/static-website/index.html
