@@ -10,3 +10,5 @@ gatsby build
 
 npm install --global surge
 surge
+
+surge token
