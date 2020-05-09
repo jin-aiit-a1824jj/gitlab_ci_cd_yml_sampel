@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - deploy
 
 build wesite:
   stage: build
@@ -36,3 +37,12 @@ test website:
     - gatsby serve & 
     - sleep 3
     - curl "http://localhost:9000" | tac | tac | grep -q "Gatsby"    
+
+deploy to surge:
+  stage: deploy
+  image: node:14-alpine
+  script:
+    - ls -al
+    - cd ./session2/static-website/
+    - npm install --g surge
+    - surge --project ./public --domain a1824jj.aiit.surge.sh
