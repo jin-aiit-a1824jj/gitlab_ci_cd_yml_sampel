@@ -21,4 +21,15 @@ test artifacts:
   script:
     - ls -al
     - grep "Gatsby" ./session2/static-website/public/index.html
-    - grep "xxxxxx" ./session2/static-website/public/index.html
+
+
+test website:
+  stage: test
+  image: node:14-alpine
+  script:
+    - ls -al
+    - cd ./session2/static-website/
+    - npm install
+    - npm install -g gatsby-cli
+    - gatsby serve
+    - curl "http://localhost:9000" | grep -q "Gatsby"    
