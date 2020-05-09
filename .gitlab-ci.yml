@@ -31,5 +31,6 @@ test website:
     - cd ./session2/static-website/
     - npm install
     - npm install -g gatsby-cli
-    - gatsby serve
+    - gatsby serve & 
+    - sleep 3
     - curl "http://localhost:9000" | grep -q "Gatsby"    
