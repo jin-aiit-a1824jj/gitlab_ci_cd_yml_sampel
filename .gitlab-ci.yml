@@ -87,7 +87,7 @@ deploy stating:
 deploy production:
   stage: deploy production
   environment:
-    name: stating
+    name: production
     url: http://a1824jj.aiit.surge.sh
   image: node:14-alpine
   cache: {}
