@@ -3,12 +3,28 @@ stages:
   - test
   - deploy
   - deployment tests
+  - cache
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - ./session2/static-website/node_modules/
+  policy: pull
 
+update cache:
+  stage: cahce
+  image: node:14-alpine
+  script:
+    - cd ./session2/static-website/
+    - npm install
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - ./session2/static-website/node_modules/
+    policy: push
+  only:
+    - schedules
+    
 build wesite:
   stage: build
   image: node:14-alpine
@@ -23,6 +39,8 @@ build wesite:
   artifacts:
     paths:
       - ./session2/static-website/public
+  except:
+    - schedules
 
 test artifacts:
   stage: test
@@ -31,7 +49,8 @@ test artifacts:
   script:
     - ls -al
     - grep "Gatsby" ./session2/static-website/public/index.html
-
+  except:
+    - schedules
 
 test website:
   stage: test
@@ -45,7 +64,9 @@ test website:
     - apk add curl
     - gatsby serve & 
     - sleep 3
-    - curl "http://localhost:9000" | tac | tac | grep -q "Gatsby"    
+    - curl "http://localhost:9000" | tac | tac | grep -q "Gatsby"
+  except:
+    - schedules    
 
 deploy to surge:
   stage: deploy
@@ -56,6 +77,8 @@ deploy to surge:
     - cd ./session2/static-website/
     - npm install --g surge
     - surge --project ./public --domain a1824jj.aiit.surge.sh
+  except:
+    - schedules
 
 test deployment:
   stage: deployment tests
@@ -65,3 +88,5 @@ test deployment:
     - apk add --no-cache curl
     - curl -s "http://a1824jj.aiit.surge.sh" | grep -q "Hi people"
     - curl -s "http://a1824jj.aiit.surge.sh" | grep -q "$CI_COMMIT_SHORT_SHA"
+  except:
+    - schedules
