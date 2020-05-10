@@ -4,6 +4,11 @@ stages:
   - deploy
   - deployment tests
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - ./session2/static-website/node_modules/
+
 build wesite:
   stage: build
   image: node:14-alpine
