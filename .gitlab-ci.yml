@@ -1,8 +1,9 @@
 stages:
   - build
   - test
-  - deploy
-  - deployment tests
+  - deploy staging
+  - deploy production
+  - production tests
   - cache
 
 cache:
@@ -68,8 +69,26 @@ test website:
   except:
     - schedules    
 
-deploy to surge:
-  stage: deploy
+deploy stating:
+  stage: deploy staging
+  environment:
+    name: stating
+    url: http://a1824jj-stating.aiit.surge.sh
+  image: node:14-alpine
+  cache: {}
+  script:
+    - ls -al
+    - cd ./session2/static-website/
+    - npm install --g surge
+    - surge --project ./public --domain a1824jj-stating.aiit.surge.sh
+  except:
+    - schedules
+
+deploy production:
+  stage: deploy production
+  environment:
+    name: stating
+    url: http://a1824jj.aiit.surge.sh
   image: node:14-alpine
   cache: {}
   script:
@@ -81,7 +100,7 @@ deploy to surge:
     - schedules
 
 test deployment:
-  stage: deployment tests
+  stage: production tests
   image: alpine:latest
   cache: {}
   script:
