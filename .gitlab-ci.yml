@@ -76,7 +76,7 @@ test website:
 
 deploy review:
   stage: deploy review
-  mage: node:14-alpine
+  image: node:14-alpine
   only:
     - merge_requests
   environment:
