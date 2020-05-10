@@ -12,7 +12,7 @@ cache:
   policy: pull
 
 update cache:
-  stage: cahce
+  stage: cache
   image: node:14-alpine
   script:
     - cd ./session2/static-website/
