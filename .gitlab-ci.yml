@@ -87,6 +87,8 @@ deploy staging:
     - surge --project ./public --domain $STAGING_DOMAIN
   except:
     - schedules
+  only:
+    - master
 
 deploy production:
   stage: deploy production
@@ -104,6 +106,8 @@ deploy production:
     - schedules
   when: manual
   allow_failure: false
+  only:
+    - master
 
 test deployment:
   stage: production tests
@@ -115,3 +119,5 @@ test deployment:
     - curl -s "http://$PRODUCTION_DOMAIN" | grep -q "$CI_COMMIT_SHORT_SHA"
   except:
     - schedules
+  only:
+    - master
