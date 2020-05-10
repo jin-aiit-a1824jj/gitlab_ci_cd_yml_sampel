@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - deploy review
   - deploy staging
   - deploy production
   - production tests
@@ -72,6 +73,21 @@ test website:
     - curl "http://localhost:9000" | tac | tac | grep -q "Gatsby"
   except:
     - schedules    
+
+deploy review:
+  stage: deploy review
+  mage: node:14-alpine
+  only:
+    - merge_requests
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: http://a1824jj-$CI_ENVIRONMENT_SLUG.surge.sh
+  cache: {}
+  script:
+    - ls -al
+    - cd ./session2/static-website/
+    - npm install --g surge
+    - surge --project ./public --domain a1824jj-$CI_ENVIRONMENT_SLUG.surge.sh
 
 deploy staging:
   stage: deploy staging
