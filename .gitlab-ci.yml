@@ -47,6 +47,9 @@ build wesite:
       - ./session2/static-website/public
   except:
     - schedules
+  only:
+    - master
+    - merge_requests
 
 test artifacts:
   stage: test
@@ -57,6 +60,9 @@ test artifacts:
     - grep "Gatsby" ./session2/static-website/public/index.html
   except:
     - schedules
+  only:
+    - master
+    - merge_requests
 
 test website:
   stage: test
@@ -72,7 +78,10 @@ test website:
     - sleep 3
     - curl "http://localhost:9000" | tac | tac | grep -q "Gatsby"
   except:
-    - schedules    
+    - schedules
+  only:
+    - master
+    - merge_requests    
 
 deploy review:
   stage: deploy review
