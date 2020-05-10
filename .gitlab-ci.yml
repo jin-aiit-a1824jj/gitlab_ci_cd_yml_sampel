@@ -82,12 +82,31 @@ deploy review:
   environment:
     name: review/$CI_COMMIT_REF_NAME
     url: http://a1824jj-$CI_ENVIRONMENT_SLUG.surge.sh
+    on_stop: stop review
   cache: {}
   script:
     - ls -al
     - cd ./session2/static-website/
     - npm install --g surge
     - surge --project ./public --domain a1824jj-$CI_ENVIRONMENT_SLUG.surge.sh
+
+stop review:
+  stage: deploy review
+  image: node:14-alpine
+  only:
+    - merge_requests
+  cache: {}
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - ls -al
+    - cd ./session2/static-website/
+    - npm install --g surge
+    - surge teardown a1824jj-$CI_ENVIRONMENT_SLUG.surge.sh
+  when: manual
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    action: stop
 
 deploy staging:
   stage: deploy staging
