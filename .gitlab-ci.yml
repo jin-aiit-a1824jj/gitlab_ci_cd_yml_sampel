@@ -7,11 +7,13 @@ build wesite:
   stage: build
   image: node:14-alpine
   script:
+    - echo $CI_COMMIT_SHORT_SHA
     - ls -al
     - cd ./session2/static-website/
     - npm install
     - npm install -g gatsby-cli
     - gatsby build
+    - sed -i "s/%%VERSION%%/$CI_COMMIT_SHORT_SHA/" ./public/index.html
   artifacts:
     paths:
       - ./session2/static-website/public
