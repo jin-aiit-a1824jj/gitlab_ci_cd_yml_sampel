@@ -102,6 +102,8 @@ deploy production:
     - surge --project ./public --domain $PRODUCTION_DOMAIN
   except:
     - schedules
+  when: manual
+  allow_failure: false
 
 test deployment:
   stage: production tests
