@@ -133,9 +133,6 @@ deploy production:
   image: node:14-alpine
   cache: {}
   script:
-    - ls -al
-    - cd ./session2/static-website/
-    - npm install --g surge
     - surge --project ./public --domain $PRODUCTION_DOMAIN
   except:
     - schedules
@@ -143,6 +140,11 @@ deploy production:
   allow_failure: false
   only:
     - master
+  before_script:
+    - echo "Deploying to production"
+    - ls -al
+    - cd ./session2/static-website/
+    - npm install --g surge
 
 test deployment:
   stage: production tests
